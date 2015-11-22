@@ -16,4 +16,7 @@ def get_bittransfer(request):
     5. timestamp
     6. description
     """
-    return json.loads(request.headers[BitTransfer.http_payment_data])
+    try:
+        return json.loads(request.headers[BitTransfer.http_payment_data])
+    except KeyError:
+        return None
