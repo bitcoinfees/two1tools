@@ -5,12 +5,11 @@ import requests
 from two1.lib.bitserv.payment_methods import BitTransfer
 
 
-def send_bittransfer(wallet, payer_username, payee_username, payee_address,
+def send_bittransfer(wallet, payer_username, payee_username,
                      amount, description=""):
     """Create and redeem a bittransfer."""
     bittransfer, signature = create_bittransfer(
-        wallet, payer_username, payee_username,
-        payee_address, amount, description)
+        wallet, payer_username, payee_username, amount, description)
     return redeem_bittransfer(bittransfer, signature, payee_username)
 
 
@@ -34,7 +33,7 @@ def get_bittransfer(request):
         return None
 
 
-def create_bittransfer(wallet, payer_username, payee_username, payee_address,
+def create_bittransfer(wallet, payer_username, payee_username,
                        amount, description=""):
     """Manually create and sign a bittransfer.
 
@@ -44,7 +43,6 @@ def create_bittransfer(wallet, payer_username, payee_username, payee_address,
 
     bittransfer = json.dumps({
         'payer': payer_username,
-        'payee_address': payee_address,
         'payee_username': payee_username,
         'amount': amount,
         'timestamp': time.time(),
