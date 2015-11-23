@@ -42,16 +42,15 @@ def create_bittransfer(wallet, payer_username, payee_username, payee_address,
         'description': description
     })
     signature = wallet.sign_message(bittransfer)
-    return bittransfer, signature
+    return bittransfer, signature, payee_username
 
 
-def redeem_bittransfer(bittransfer, signature):
+def redeem_bittransfer(bittransfer, signature, payee_username):
     """Apply the result of create_bittransfer to effect the transfer.
 
     Refer to BitTransfer.redeem_payment.
     """
-    verification_url = BitTransfer.verification_url.format(
-        bittransfer['payee_username'])
+    verification_url = BitTransfer.verification_url.format(payee_username)
     try:
         return requests.post(verification_url,
                              data=json.dumps({'bittransfer': bittransfer,
