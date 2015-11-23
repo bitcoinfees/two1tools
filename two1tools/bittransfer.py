@@ -42,7 +42,7 @@ def create_bittransfer(wallet, payer_username, payee_username, payee_address,
         'description': description
     })
     signature = wallet.sign_message(bittransfer)
-    return bittransfer, signature, payee_username
+    return bittransfer, signature
 
 
 def redeem_bittransfer(bittransfer, signature, payee_username):
