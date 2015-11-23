@@ -5,6 +5,15 @@ import requests
 from two1.lib.bitserv.payment_methods import BitTransfer
 
 
+def send_bittransfer(wallet, payer_username, payee_username, payee_address,
+                     amount, description=""):
+    """Create and redeem a bittransfer."""
+    bittransfer, signature = create_bittransfer(
+        wallet, payer_username, payee_username,
+        payee_address, amount, description)
+    return redeem_bittransfer(bittransfer, signature, payee_username)
+
+
 def get_bittransfer(request):
     """Get the bittransfer header from a request.
 
@@ -51,10 +60,7 @@ def redeem_bittransfer(bittransfer, signature, payee_username):
     Refer to BitTransfer.redeem_payment.
     """
     verification_url = BitTransfer.verification_url.format(payee_username)
-    try:
-        return requests.post(verification_url,
-                             data=json.dumps({'bittransfer': bittransfer,
-                                              'signature': signature}),
-                             headers={'content-type': 'application/json'})
-    except requests.ConnectionError:
-        pass
+    return requests.post(verification_url,
+                         data=json.dumps({'bittransfer': bittransfer,
+                                          'signature': signature}),
+                         headers={'content-type': 'application/json'})
