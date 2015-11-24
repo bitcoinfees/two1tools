@@ -14,4 +14,9 @@ setup(
     url='https://github.com/bitcoinfees/two1tools',
     install_requires=[
     ],
+    entry_points={
+        'console_scripts': [
+            'sendsats = two1tools.bittransfer:send_bittransfer_cli'
+        ]
+    },
 )

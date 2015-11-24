@@ -1,15 +1,33 @@
+import sys
 import json
 import time
 import requests
 
 from two1.lib.bitserv.payment_methods import BitTransfer
+from two1.lib.wallet import Wallet
+from two1.commands.config import Config
 
 
-def send_bittransfer(wallet, payer_username, payee_username,
-                     amount, description=""):
+def send_bittransfer_cli():
+    """CLI wrapper for send_bittransfer.
+
+    sendsats <payee> <amount> [<description>]
+    """
+    payee_username = sys.argv[1]
+    amount = int(sys.argv[2])
+    try:
+        description = sys.argv[3]
+    except IndexError:
+        description = ""
+    send_bittransfer(payee_username, amount, description).raise_for_status()
+
+
+def send_bittransfer(payee_username, amount, description=""):
     """Create and redeem a bittransfer."""
+    wallet = Wallet()
+    username = Config().username
     bittransfer, signature = create_bittransfer(
-        wallet, payer_username, payee_username, amount, description)
+        wallet, username, payee_username, amount, description)
     return redeem_bittransfer(bittransfer, signature, payee_username)
 
 
