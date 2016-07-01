@@ -7,7 +7,7 @@ setup(
     name=name,
     version=version,
     packages=find_packages(),
-    description='Tools for the 21 Bitcoin Computer',
+    description='Tools for 21',
     author='Ian Chen',
     author_email='bitcoinfees@gmail.com',
     license='MIT',
