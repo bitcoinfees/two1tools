@@ -23,7 +23,7 @@ def send_bittransfer_cli():
 
 
 def send_bittransfer(payee_username, amount, description=""):
-    """Create and redeem a bittransfer."""
+    """Create and redeem a BitTransfer."""
     wallet = Wallet()
     username = Config().username
     bittransfer, signature = create_bittransfer(
@@ -32,12 +32,12 @@ def send_bittransfer(payee_username, amount, description=""):
 
 
 def get_bittransfer(request):
-    """Get the bittransfer header from a request.
+    """Get the BitTransfer header from a request.
 
     Takes in the Flask request context object. Makes no assumptions about
     the validity of the payment.
 
-    bittransfer dict has the following keys:
+    BitTransfer dict has the following keys:
     1. payer
     2. payee_address
     3. payee_username
@@ -53,7 +53,7 @@ def get_bittransfer(request):
 
 def create_bittransfer(wallet, payer_username, payee_username,
                        amount, description=""):
-    """Manually create and sign a bittransfer.
+    """Manually create and sign a BitTransfer.
 
     wallet is a Wallet instance, payer_username is Config().username.
     Refer to BitTransferRequests.make_402_payment.
